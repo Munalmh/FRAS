@@ -1,0 +1,111 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="eng">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width = device-width, initial-scale = 1.0">
+  <title>Facial recognition based attendance system</title>
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+    <script src = "{% static 'ouapp/js/index.js' %}"></script>
+</head>
+
+<body>
+  <div class="max-w-9xl bg-blue-400 mx-auto">
+    <header class="text-gray-600 body-font">
+      <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+        {% if not request.user.is_authenticated %}
+        <a href="{% url 'signup' %}"
+          class="inline-flex items-center mr-3 bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">SignUp
+          Here</a>
+        {% else %}
+        <nav
+          class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
+        </nav>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+        Logged in as {{request.user.username}}
+        <a href="{% url 'logout' %}"
+          class="ml-2 inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">LogOut
+          <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+        </a>
+        {% else %}
+        <a href="{% url 'login' %}"
+          class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">LogIn
+          <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+        </a>
+        {% endif %}
+      </div>
+    </header>
+
+
+  </div>
+
+    <div class="relative min-h-screen md:flex">
+      <!-- mobile menu bar -->
+      {% if user.is_authenticated %}
+      <div class="bg-gray-800 text-gray-100 flex justify-between md:hidden">
+        <!-- logo -->
+        <a href="{% url 'ourapp:student-list' %}" class="block p-4 text-white font-bold">Recognition system</a>
+
+        <!-- mobile menu button -->
+        <button class="mobile-menu-button p-4 focus:outline-none focus:bg-gray-700">
+          <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- sidebar -->
+      <div
+        class="sidebar bg-blue-800 text-blue-100 w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
+
+        <!-- logo -->
+        <a href="#" class="text-white flex items-center space-x-2 px-4">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
+            stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-pink-500 rounded-full"
+            viewBox="0 0 24 24">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+          </svg>
+          <span class="text-2xl font-extrabold">Recognition system</span>
+        </a>
+
+        <!-- nav -->
+        <nav>
+          <a href="{% url 'ourapp:student-list' %}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
+            Home
+          </a>
+          <a href="{% url 'ourapp:student-create' %}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
+            Add student
+          </a>
+          <a href="{% url 'ourapp:trainmodel' %}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
+            Train model
+          </a>
+          <a href="{% url 'ourapp:take-attendance' %}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
+            Take Attendance
+          </a>
+          <a href="{% url 'ourapp:view-attendance' %}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
+            View Attendance
+          </a>
+        </nav>
+      </div>
+      {% endif %}
+      <!-- content -->
+      <div class="flex-1 p-10 text-base ">
+        {% block content %}
+        {% endblock content %}
+      </div>
+
+    </div>
+</body>
+
+</html>

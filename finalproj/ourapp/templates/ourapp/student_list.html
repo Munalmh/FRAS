@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- component -->
+<div class="bg-white p-8 rounded-md w-full">
+	<div class=" flex items-center justify-between pb-6">
+		<div>
+			<h2 class="text-gray-600 font-semibold">Student Details</h2>
+			<span class="text-xs">All Student Details</span>
+		</div>
+	
+		<div class="flex items-center justify-between">
+			{% if messages %}
+			{% for message in messages %}
+			<div id="alert-3" class="flex p-4 mb-4 bg-green-100 rounded-lg dark:bg-green-200" role="alert">
+				<svg class="flex-shrink-0 w-5 h-5 text-green-700 dark:text-green-800" fill="currentColor"
+					viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+					<path fill-rule="evenodd"
+						d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+						clip-rule="evenodd"></path>
+				</svg>
+				<div class="ml-3 text-sm font-medium text-green-700 dark:text-green-800">
+					{{message}}
+				</div>
+				<button id = "mybtn" type="button"
+					class="ml-auto -mx-1.5 -my-1.5 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex h-8 w-8 dark:bg-green-200 dark:text-green-600 dark:hover:bg-green-300"
+					data-collapse-toggle="alert-3" aria-label="Close">
+					<span class="sr-only">Close</span>
+					<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+						<path fill-rule="evenodd"
+							d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+							clip-rule="evenodd"></path>
+					</svg>
+				</button>
+			</div>
+			{% endfor %}
+			{% endif  %}
+		</div>
+	</div>
+	<div>
+		<div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+			<div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+				<table class="min-w-full leading-normal">
+					<thead>
+						<tr>
+							<th
+								class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+								Name
+							</th>
+							<th
+								class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+								Age
+							</th>
+							<th
+								class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+								Email
+							</th>
+							<th
+								class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+								Phone Number
+							</th>
+							<th
+								class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for student in students %}
+						<tr>
+							<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+								<div class="flex items-center">
+									<div class="flex-shrink-0 w-10 h-10">
+										<img class="w-full h-full rounded-full" src="{{student.image.url}}" alt="" />
+									</div>
+									<div class="ml-3">
+										<p class="text-gray-900 whitespace-no-wrap">
+											{{student.first_name}} {{student.last_name}}
+										</p>
+									</div>
+								</div>
+							</td>
+							<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+								<p class="text-gray-900 whitespace-no-wrap">{{student.age}}</p>
+							</td>
+							<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+								<p class="text-gray-900 whitespace-no-wrap">
+									{{student.email}}
+								</p>
+							</td>
+							<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+								<p class="text-gray-900 whitespace-no-wrap">
+									{{student.phone_no}}
+								</p>
+							</td>
+							<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+								<span
+									class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+									<span aria-hidden
+										class="absolute inset-0 bg-yellow-300 opacity-50 rounded-full"></span>
+									<span class="relative"><a
+											href="{% url 'ourapp:student-update' student.pk %}">Edit</a></span>
+								</span>
+								<span
+									class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+									<span aria-hidden
+										class="absolute inset-0 bg-green-700 opacity-50 rounded-full"></span>
+									<span class="relative"><a href="{% url 'ourapp:moreimages' student.pk %}">More
+											images</a></span>
+								</span>
+								<span
+									class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+									<span aria-hidden
+										class="absolute inset-0 bg-red-600 opacity-50 rounded-full"></span>
+									<span class="relative"><a
+											href="{% url 'ourapp:student-delete' student.pk %}">Delete</a></span>
+								</span>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+<script>
+let alert_toggle = document.getElementById("mybtn")
+alert_toggle.addEventListener('click', () => {
+	document.getElementById("alert-3").style.display = "none"
+});
+</script>
+
+
+
+{% endblock content %}
