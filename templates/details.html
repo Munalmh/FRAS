@@ -198,7 +198,7 @@ $(document).ready(function(){
                         <td>{{i.gender}}</td>
                         <td>
                             <a href="{% url 'delete' i.rollno %}" class="btn btn-danger btn-sm">Delete</a>
-                            <a href="{% url 'edit' %}" class="btn btn-success btn-sm">Update</a>
+                            <a href="{% url 'edit' i.rollno %}" class="btn btn-success btn-sm">Update</a>
                         </td>
                     </tr>
                    {% endfor %}      

@@ -26,7 +26,7 @@ urlpatterns = [
     path('logout/',views.LogoutPage,name='logout'),
     path('add_show/',views.add_show, name='addshow'),
     path('details/',views.detail, name='detail'),
-    path('edit/',views.edit, name='edit'),
+    path('edit/<int:rollno>/',views.edit, name='edit'),
     path('delete/<int:rollno>/',views.delete, name='delete'),
     path('',views.index_show, name='index')
     

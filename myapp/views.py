@@ -97,5 +97,5 @@ def delete(request,rollno):
 #         form = StudentRegistration()
 #     return render(request, 'addshow.html', {'form': form})
 
-def edit (self, request):
+def edit (request, rollno):
     return render(request,'editstud.html')
