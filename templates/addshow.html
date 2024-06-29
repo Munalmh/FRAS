@@ -1,0 +1,91 @@
+
+   
+
+    {% extends 'base.html' %}
+
+{% block title %}Student List and Registration{% endblock %}
+
+{% block content %}
+<style>
+      body {
+        background-image: url('https://plus.unsplash.com/premium_photo-1683121710572-7723bd2e235d?q=80&w=2232&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        opacity: 1.0;
+    } 
+    .form-container {
+        max-width: 500px;
+        margin: auto;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+    .form-group {
+        margin-bottom: 0.5rem;
+    }
+    .form-group label {
+        margin-bottom: 0;
+    }
+    .form-control {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+    }
+    .btn {
+        padding: 0.375rem 0.75rem;
+    }
+</style>
+
+<div class="container-fluid center-form"> 
+    <div class="form-container"> 
+        <h1 class="text-center">Student Registration</h1>
+        <form method="post" class="mt-3">
+            {% csrf_token %}
+            
+            <div class="form-group row">
+                <label for="id_name" class="col-sm-4 col-form-label">Name:</label>
+                <div class="col-sm-8">
+                    {{ form.name }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="id_rollno" class="col-sm-4 col-form-label">Roll No:</label>
+                <div class="col-sm-8">
+                    {{ form.rollno }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="id_phoneno" class="col-sm-4 col-form-label">Phone No:</label>
+                <div class="col-sm-8">
+                    {{ form.phoneno }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="id_address" class="col-sm-4 col-form-label">Address:</label>
+                <div class="col-sm-8">
+                    {{ form.address }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="id_gender" class="col-sm-4 col-form-label">Gender:</label>
+                <div class="col-sm-8">
+                    {{ form.gender }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="id_gender" class="col-sm-4 col-form-label">Photos:</label>
+                <div class="col-sm-8">
+                    {{ form.photo }}
+                </div>
+            </div>
+            <div class="form-group row justify-content-center">
+                <div class="col-sm-8">
+                    <button type="submit" class="btn btn-primary btn-block">Add Student</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
