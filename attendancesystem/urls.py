@@ -28,6 +28,7 @@ urlpatterns = [
     path('details/',views.detail, name='detail'),
     path('edit/<int:rollno>/',views.edit, name='edit'),
     path('delete/<int:rollno>/',views.delete, name='delete'),
+    path('attendance/', views.attendance, name='attendance'),
     path('',views.index_show, name='index')
     
 ]

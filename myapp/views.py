@@ -89,13 +89,38 @@ def delete(request,rollno):
 # def add_show(request):
 #     if request.method == 'POST':
 #         form = StudentRegistration(request.POST, request.FILES)
-#         print('success',form)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('student_list')  # Redirect to a list of students or another appropriate page
+#     print('success',form)
+#     if form.is_valid():
+#              form.save()
+#              return redirect('student_list')  # Redirect to a list of students or another appropriate page
 #     else:
-#         form = StudentRegistration()
+#          form = StudentRegistration()
 #     return render(request, 'addshow.html', {'form': form})
 
-def edit (request, rollno):
-    return render(request,'editstud.html')
+def edit(request, rollno):
+    obj = Student.objects.get(rollno=rollno)
+    form = StudentRegistration(instance=obj)
+    if request.method == 'POST':
+        form = StudentRegistration(request.POST, instance=obj)
+        if form.is_valid():
+            form.save()
+            return redirect('details')
+    template_name = 'editstud.html'
+    context = {'form': form}
+    return render(request, template_name, context)
+
+def attendance(request):
+    if request.method == "POST":
+        for student in Student.objects.all():
+            attendance_key = f"attendance_{student.rollno}"
+            if attendance_key in request.POST:
+                # Mark student as present
+                student.is_present = True
+            else:
+                # Mark student as absent
+                student.is_present = False
+            student.save()
+        return redirect('attendance')  # Redirect to the same page or another page
+
+    students = Student.objects.all()
+    return render(request, 'attendance.html', {'students': students})
