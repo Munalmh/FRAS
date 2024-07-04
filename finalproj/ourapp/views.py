@@ -106,7 +106,9 @@ def trainmodel(request):
             # print(image_path)
             for i in os.listdir(image_path):
                 final_image_path = os.path.join(image_path, i)
+                print(final_image_path,'final_image_path')
                 idt = int((final_image_path).split("_")[0][-1])
+                print(idt,'idt')
                 img=cv2.imread(final_image_path)
                 gray=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
                 equliimage =cv2.equalizeHist(gray)
@@ -200,7 +202,7 @@ def takeattendance(request):
     clf = cv2.face.LBPHFaceRecognizer_create()
     clf.read(os.path.join(DIR, "classifier.xml"))
 
-    video_capture = cv2.VideoCapture(-1)
+    video_capture = cv2.VideoCapture(0) #-1 for  linux and 0 for window and 1 for other multiple  camera
 
     while True:
         ret, img = video_capture.read()
@@ -222,7 +224,7 @@ def takeattendance(request):
 def moreimages(request, pk):
     names = Student.objects.filter(id = pk)
     for i in names:
-        first_name= i.first_name
+        first_name= i.first_name+' '+i.last_name
     if request.method == "POST":
         named = request.POST.get('namess')
         print(named)

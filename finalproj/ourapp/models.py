@@ -8,10 +8,12 @@ from datetime import date
 
 
 def get_upload_path(instance, filename):
-    return '{0}/{1}'.format(instance.first_name, filename)
+    new_filename= f"{instance.roll_no}_{instance.first_name}_{filename}"
+    return '{0}/{1}'.format(instance.first_name, new_filename)
 
 def get_upload_paths(instance, filename):
-    return '{0}/{1}'.format(instance.stu_name, filename)
+    new_filename= f"{instance.roll_no}_{instance.first_name}_{filename}"
+    return '{0}/{1}'.format(instance.stu_name, new_filename)
 
 
 class Student(models.Model):

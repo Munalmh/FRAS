@@ -23,7 +23,16 @@ class CustomUserCreationForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'first_name', 'last_name', 'password1', 'password2']
 
-
+# def save(self, commit=True):
+#     instance = super().save(commit=False)
+#     original_filename = self.cleaned_data['image'].name
+#     new_filename = f"{self.cleaned_data['roll_no']}_{self.cleaned_data['first_name']}_{original_filename}"
+#     instance.file.name = new_filename
+    
+#     if commit:
+#         instance.save()
+    
+#     return instance
 
 
 
