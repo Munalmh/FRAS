@@ -16,7 +16,7 @@ class StudentModelForm(forms.ModelForm):
             'email',
             'image',
         )
-        image = forms.ImageField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+        image = forms.ImageField(widget=forms.ClearableFileInput)
         
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
