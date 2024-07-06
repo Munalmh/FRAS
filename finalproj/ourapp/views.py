@@ -14,6 +14,7 @@ import numpy as np
 import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth.views import LogoutView
 
 
 
@@ -217,7 +218,7 @@ def takeattendance(request):
     cv2.destroyAllWindows()
 
     messages.info(request, "Attendance has been taken successfully. Please check the attendance")
-    return redirect('ourapp:student-list')
+    return redirect('ourapp:view-attendance')
 
 
 @login_required
@@ -232,7 +233,7 @@ def moreimages(request, pk):
         files = request.FILES.getlist('image')
         for f in files:
             ImageForm(stu_name = named, image_field = f,roll_no=roll_no).save()
-        return redirect('ourapp:student-list') 
+        return redirect('ourapp:view-attendance') 
     
     context = {
         'first_name':first_name
@@ -259,7 +260,7 @@ def exportattendance(request):
     response ['content-Disposition'] = 'attachement; filename = Attendance' + str(datetime.datetime.now())+ '.csv'
     
     writer = csv.writer(response)
-    writer.writerow(['Name', 'Email', 'Roll number', 'Status'])
+    writer.writerow(['Name', 'Email', 'Roll number', 'Status','Date'])
 
     attendance = Student.objects.all()
     for i in attendance:
@@ -267,6 +268,6 @@ def exportattendance(request):
             status = 'present'
         else:
             status = 'Absent'
-        writer.writerow([i.first_name, i.email, i.roll_no, status])
+        writer.writerow([i.first_name +' '+i.last_name, i.email, i.roll_no, status,str(datetime.datetime.now().strftime('%Y/%m/%d'))])
 
     return response

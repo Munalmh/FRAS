@@ -22,10 +22,11 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("app/", include('ourapp.urls', namespace="ourapp")),
+    path("", include('ourapp.urls', namespace="ourapp")),
     path('login/', LoginView.as_view(), name = "login"),
     path('logout/', LogoutView.as_view(), name = "logout"), 
     path('signup/', SignUpView.as_view(), name = "signup"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+ 
