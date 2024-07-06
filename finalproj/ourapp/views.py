@@ -224,13 +224,14 @@ def takeattendance(request):
 def moreimages(request, pk):
     names = Student.objects.filter(id = pk)
     for i in names:
-        first_name= i.first_name+' '+i.last_name
+        first_name= i.first_name
+        roll_no=i.roll_no
     if request.method == "POST":
         named = request.POST.get('namess')
         print(named)
         files = request.FILES.getlist('image')
         for f in files:
-            ImageForm(stu_name = named, image_field = f).save()
+            ImageForm(stu_name = named, image_field = f,roll_no=roll_no).save()
         return redirect('ourapp:student-list') 
     
     context = {
