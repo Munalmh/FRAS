@@ -58,7 +58,7 @@
         <a href="{% url 'ourapp:student-list' %}" class="block p-4 text-white font-bold">Recognition system</a>
 
         <!-- mobile menu button -->
-        <button class="mobile-menu-button p-4 focus:outline-none focus:bg-gray-700">
+        <button id="mobile-menu-button" class="mobile-menu-button p-4 focus:outline-none focus:bg-gray-700">
           <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
@@ -99,7 +99,6 @@
         </nav>
       </div>
       {% endif %}
-      <!-- content -->
       <div class="flex-1 p-10 text-base ">
         {% block content %}
         {% endblock content %}
@@ -110,6 +109,11 @@
 
 </html>
 <script>
+    $(document).ready(function() {
+  $('#mobile-menu-button').click(function() {
+    $('.sidebar').toggleClass('-translate-x-full');
+  });
+});
   document.getElementById('logout-link').addEventListener('click', function(event) {
       event.preventDefault();
   
@@ -117,23 +121,20 @@
           method: 'POST',
           headers: {
               'X-CSRFToken': '{{ csrf_token }}',
-              'Content-Type': 'application/json'  // Specify content type if needed
+              'Content-Type': 'application/json' 
           },
-          // Optionally, include a body if your server expects data in the request
-          // body: JSON.stringify({ key: 'value' })
       })
       .then(response => {
           if (response.ok) {
-              // Redirect to another page or handle success as needed
-              window.location.href = '/';  // Redirect after successful logout
+              window.location.href = '/';
           } else {
               throw new Error('Logout request failed');
           }
       })
       .catch(error => {
           console.error('Error logging out:', error);
-          // Handle error scenarios
       });
   });
+
   </script>
   
