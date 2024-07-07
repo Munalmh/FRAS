@@ -12,7 +12,8 @@ def get_upload_path(instance, filename):
     return '{0}/{1}'.format(instance.first_name, new_filename)
 
 def get_upload_paths(instance, filename):
-    return '{0}/{1}'.format(instance.stu_name, filename)
+    new_filename= f"{instance.roll_no}_{instance.stu_name}_{filename}"
+    return '{0}/{1}'.format(instance.stu_name, new_filename)
 
 
 class Student(models.Model):
@@ -35,6 +36,7 @@ class Student(models.Model):
 
 class ImageForm(models.Model):
     stu_name = models.CharField(max_length=255)
+    roll_no =models.IntegerField( blank = False, null = False)
     image_field = models.FileField(upload_to = get_upload_paths, blank = False, null = False)
     def __str__(self):
         return f"{self.stu_name}"
