@@ -36,10 +36,22 @@ class Student(models.Model):
 
 class ImageForm(models.Model):
     stu_name = models.CharField(max_length=255)
-    roll_no =models.IntegerField( blank = False, null = False)
+    roll_no =models.IntegerField( blank = True, null = True)
     image_field = models.FileField(upload_to = get_upload_paths, blank = False, null = False)
     def __str__(self):
         return f"{self.stu_name}"
+
+class StudentAttendence(models.Model):
+    name = models.CharField(max_length=450)
+    roll_no = models.IntegerField()
+    age = models.IntegerField(default=0)
+    phone_no = models.IntegerField(default = 0)
+    email = models.EmailField(blank = True,max_length=256)
+    is_present = models.BooleanField(default=False)
+    date =models.DateTimeField()
+
+    def __str__(self):
+        return f"{self.name}"
 
 
 

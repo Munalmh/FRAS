@@ -10,7 +10,8 @@ from ourapp.views import (
     trainmodel,
     takeattendance,
     moreimages, 
-    exportattendance
+    exportattendance,
+    bulk_insert_attendence
 
 )
 app_name = "ourapp"
@@ -25,6 +26,7 @@ urlpatterns = [
      path("trainmodel/", trainmodel, name = "trainmodel"),
      path("<int:pk>/moreimage",moreimages, name = "moreimages"),
      path("exportcsv/",exportattendance, name = "exportattendance"),
+     path("saveattendence/",bulk_insert_attendence, name = "bulk_insert_attendence"),
      #path('img_upload/', StudentImage.as_view(), name = "image-upload"), 
 ]
 

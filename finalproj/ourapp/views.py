@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, reverse
 from .forms import StudentModelForm, CustomUserCreationForm
 from django.views import generic
-from .models import Student, ImageForm
+from .models import Student, ImageForm,StudentAttendence
 from django.contrib.auth.mixins import LoginRequiredMixin
 import cv2
 import os
@@ -271,3 +271,28 @@ def exportattendance(request):
         writer.writerow([i.first_name +' '+i.last_name, i.email, i.roll_no, status,str(datetime.datetime.now().strftime('%Y/%m/%d'))])
 
     return response
+
+@login_required
+def bulk_insert_attendence(request):
+    
+    attendance = Student.objects.all()
+    student_list = []
+    for i in attendance:
+        if i.is_present == True:
+            i.is_present =  i.is_present
+        else:
+             i.is_present = not i.is_present
+        student_attendance = StudentAttendence(
+            name=f'{i.first_name} {i.last_name}',
+            roll_no=i.roll_no,
+            age=i.age,
+            phone_no=i.phone_no,
+            email=i.email,
+            date=datetime.datetime.now(),
+            is_present=i.is_present
+        )
+        student_list.append(student_attendance)
+    print(attendance,'studentsAttendance')
+    StudentAttendence.objects.bulk_create(student_list)
+    messages.info(request, "Attendance has been taken successfully. Please check the attendance")
+    return redirect('ourapp:student-list')
