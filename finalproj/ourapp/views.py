@@ -296,3 +296,11 @@ def bulk_insert_attendence(request):
     StudentAttendence.objects.bulk_create(student_list)
     messages.info(request, "Attendance has been taken successfully. Please check the attendance")
     return redirect('ourapp:student-list')
+
+def attendancehistory(request):
+    present_student = StudentAttendence.objects.all().order_by('-date')
+    print('munal', present_student)
+    context = {
+        'present_student': present_student,
+    }
+    return render(request, "ourapp/attendancehistory.html", context)
